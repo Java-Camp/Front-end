@@ -1,0 +1,29 @@
+.footer {
+  background: #0984e3;
+  color: #fff;
+  font-size: 20px;
+}
+ul {
+  justify-content: center;
+  list-style: none;
+}
+.footer_list {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding:0;
+  margin: 0;
+}
+li {
+  margin: 0% 10%;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}
+.el_logo {
+}
+.el_v {
+}
+.el_about {
+}
