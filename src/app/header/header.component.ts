@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatMenu} from '@angular/material/menu';
 import {MatIcon} from '@angular/material/icon';
 import { UserDataService, User } from "../user-data.service";
+import { AuthorizationService } from "../auth/authorization.service";
+
 
 @Component({
   selector: 'app-header',
@@ -10,9 +12,14 @@ import { UserDataService, User } from "../user-data.service";
 })
 export class HeaderComponent implements OnInit {
   is_active = "";
-  constructor(private data:UserDataService) { }
+  constructor(private data:UserDataService, private auth:AuthorizationService) { }
 
   ngOnInit(): void {
+  }
+
+  loggout() {
+    this.auth.loggout();
+    window.location.reload();
   }
 
   public user = this.data.user;

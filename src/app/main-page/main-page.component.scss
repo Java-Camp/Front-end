@@ -1,10 +1,66 @@
-p {
-  font-size: 40px;
-  text-align: center;
+.wrapper {
+
+}
+
+.income-expense {
+  margin: 2% 40%;
   display: flex;
   justify-content: center;
-  vertical-align: middle;
-  padding: 0;
-  padding-top: 400px;
-  margin: 0;
+  font-size: 20px;
+}
+
+.today-income {
+ color: #4ae85a;
+ padding: 0px 30px;
+}
+
+.today-expense {
+ color:#e63c44;
+ padding: 0px 30px;
+}
+
+.buttons {
+  margin: 2% 25%;
+}
+.income {
+  font-size: 18px;
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.1em 0.1em 0;
+  border:0.16em solid rgba(255,255,255,0);
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:black;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  text-align:center;
+  transition: all 0.2s;
+  background-color: #4ae85a;
+  &:hover{
+    border-color:black;
+  }
+}
+
+.expense {
+  font-size: 18px;
+  float: right;
+  background-color: #e63c44;
+  display:inline-block;
+  padding:0.3em 1em;
+  margin:0 0.1em 0.1em 0;
+  border:0.16em solid rgba(255,255,255,0);
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:black;
+  text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+  text-align:center;
+  transition: all 0.2s;
+  &:hover{
+    border-color:black;
+  }
 }

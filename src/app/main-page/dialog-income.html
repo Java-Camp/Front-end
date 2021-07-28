@@ -1,0 +1,53 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Sum</mat-label>
+    <input type="email" matInput [formControl]="sumControle" placeholder="Write your income">
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Type of income</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="type"
+           matInput
+           [formControl]="firstControle"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>How often</mat-label>
+    <input type="text"
+           placeholder="Every..."
+           aria-label="type"
+           matInput
+           [formControl]="secondControle"
+           [matAutocomplete]="auto2">
+    <mat-autocomplete #auto2="matAutocomplete">
+      <mat-option *ngFor="let option of incomeDate" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+  <p><mat-checkbox formControlName="notification">Do you want to get an email about this income?</mat-checkbox></p>
+
+<div class="button_add">
+  <button class="income" mat-button mat-dialog-close (click)="openSnackBar()">Add</button>
+</div>

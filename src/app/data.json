@@ -2,5 +2,98 @@
   "firstName":"Grzegorz",
   "lastName":"Brzedrzyszczakiewicz",
   "balance":"31299.20",
-  "email":"brzedrzyszczakiewicz@gmail.com"
+  "email":"brzedrzyszczakiewicz@gmail.com",
+  "todayIncome":"500.00",
+  "todayExpense":"755.00",
+  "accounts": [
+    {
+      "title":"Personal account",
+      "imageUrl":"https://freesvg.org/img/abstract-user-flat-1.png",
+      "description":"For my own income and expense"
+    },
+    {
+      "title":"Savings account",
+      "imageUrl":"https://image.flaticon.com/icons/png/512/20/20687.png",
+      "description":"Save 10% of salary every month"
+    },
+    {
+      "title":"Family account",
+      "imageUrl":"https://img.icons8.com/ios/452/family--v1.png",
+      "description":"For three people"
+    }
+  ],
+  "expense": [
+    {
+      "date":"2021-07-19",
+      "sum":"75",
+      "category":"Car"
+    },
+    {
+      "date":"2021-07-20",
+      "sum":"89",
+      "category":"House"
+    },
+    {
+      "date":"2021-07-21",
+      "sum":"34",
+      "category":"Entertainment"
+    },
+    {
+      "date":"2021-07-22",
+      "sum":"57",
+      "category":"Food"
+    },
+    {
+      "date":"2021-07-23",
+      "sum":"24",
+      "category":"Gifts"
+    },
+    {
+      "date":"2021-07-24",
+      "sum":"10",
+      "category":"Transport"
+    },
+    {
+      "date":"2021-07-25",
+      "sum":"60",
+      "category":"Clothers"
+    }
+  ],
+  "income": [
+    {
+      "date":"2021-07-19",
+      "sum":"10",
+      "category":"Gift"
+    },
+    {
+      "date":"2021-07-20",
+      "sum":"100",
+      "category":"Job"
+    },
+    {
+      "date":"2021-07-21",
+      "sum":"40",
+      "category":"Credit"
+    },
+    {
+      "date":"2021-07-22",
+      "sum":"20",
+      "category":"Gift"
+    },
+    {
+      "date":"2021-07-23",
+      "sum":"100",
+      "category":"Job"
+    },
+    {
+      "date":"2021-07-24",
+      "sum":"100",
+      "category":"Job"
+    },
+    {
+      "date":"2021-07-25",
+      "sum":"50",
+      "category":"Job"
+    }
+  ]
 }

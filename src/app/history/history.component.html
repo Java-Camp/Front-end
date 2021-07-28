@@ -1,0 +1,71 @@
+<mat-form-field class="example-form-field" appearance="fill">
+  <mat-label>First campaign</mat-label>
+  <mat-date-range-input
+    [formGroup]="campaignOne"
+    [rangePicker]="campaignOnePicker"
+    [comparisonStart]="campaignTwo.value.start"
+    [comparisonEnd]="campaignTwo.value.end">
+    <input matStartDate placeholder="Start date" formControlName="start">
+    <input matEndDate placeholder="End date" formControlName="end">
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+</mat-form-field>
+
+<p>Selected range: {{campaignOne.value | json}}</p>
+
+<app-bar-chart></app-bar-chart>
+
+<mat-tab-group>
+  <mat-tab label="Expense">
+    <div class="content_wrapper">
+
+      <table mat-table [dataSource]="expenses" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sum">
+          <th mat-header-cell *matHeaderCellDef> Sum </th>
+          <td mat-cell *matCellDef="let element"> {{element.sum}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Income">
+    <div class="content_wrapper">
+      <table mat-table [dataSource]="incomes" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sum">
+          <th mat-header-cell *matHeaderCellDef> Sum </th>
+          <td mat-cell *matCellDef="let element"> {{element.sum}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>

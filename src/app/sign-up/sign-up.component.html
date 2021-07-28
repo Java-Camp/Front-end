@@ -1,0 +1,50 @@
+  <mat-card>
+    <mat-card-title>Registration</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <p>
+        <mat-form-field class="width-50">
+          <mat-label>First Name</mat-label>
+          <input matInput #firstname>
+        </mat-form-field>
+        </p>
+
+        <p>
+        <mat-form-field class="width-50 ml-2">
+          <mat-label>Last Name</mat-label>
+          <input matInput #lastname>
+        </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field class="width-100">
+            <mat-label>Email address</mat-label>
+            <input matInput placeholder="Ex. pat@example.com" #email>
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field class="width-100">
+            <mat-label>Enter password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" #password>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </p>
+
+        <p *ngIf="error" class="error">
+          {{ error }}
+        </p>
+
+        <div class="button">
+          <button type="submit" mat-button (click)="registration(firstname.value, lastname.value, email.value, password.value)">Sign up</button>
+        </div>
+        <div class="link">
+          <a routerLink="/sign-in">Sign in</a>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>

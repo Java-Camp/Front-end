@@ -1,0 +1,17 @@
+<div class="buttons">
+  <button class="create-button" (click)="openDialogCreate()">Create new account</button>
+</div>
+
+<form *ngFor="let account of accounts" routerLink="/">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{account.title}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="{{account.imageUrl}}">
+    <mat-card-content>
+      <p>
+        {{account.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</form>

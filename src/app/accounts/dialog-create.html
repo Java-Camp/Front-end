@@ -1,0 +1,43 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Type of account</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="type"
+           matInput
+           [formControl]="firstControle"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Description</mat-label>
+    <input type="email" matInput [formControl]="descriptionControle" placeholder="Write your description">
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Currency</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="type"
+           matInput
+           [formControl]="currencyControle"
+           [matAutocomplete]="auto2">
+    <mat-autocomplete #auto2="matAutocomplete">
+      <mat-option *ngFor="let option of currencyOptions" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+<div class="button_add">
+  <button class="income" mat-button mat-dialog-close (click)="openSnackBar()">Create</button>
+</div>
