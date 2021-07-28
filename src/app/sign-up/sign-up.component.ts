@@ -1,6 +1,8 @@
 import { Input, Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AuthorizationService } from "../auth/authorization.service";
+import { RegistrationService } from "../auth/registration.service";
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -15,18 +17,18 @@ export class SignUpComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private auth:AuthorizationService) { }
+  constructor(private reg:RegistrationService, private router: Router) { }
 
   registration(firstname:string, lastname:string, email:string, password:string) {
-    let request = {
-      "firstname":firstname,
-      "lastname":lastname,
-      "email":email,
-      "password":password
-    };
-    console.log(request);
-
-    //this.auth.registration(request);
+    console.log();
+    let success = this.reg.registration(firstname, lastname, email, password);
+    success.subscribe( data => {
+      if (data) {
+        this.router.navigate(['/sign-in']);
+      } else {
+        this.error = 'Incorrect data';
+      }
+    })
   }
 
   submit() {

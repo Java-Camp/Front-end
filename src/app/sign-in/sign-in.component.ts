@@ -16,7 +16,6 @@ export class SignInComponent implements OnInit {
   authentification(email:string, password:string) {
     let res = this.auth.generateToken(email, password);
     res.subscribe(data => {
-      console.log(data);
       if(data) {
         this.router.navigateByUrl(this.return);
       } else {
