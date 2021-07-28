@@ -40,6 +40,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { AuthorizationService } from "./auth/authorization.service";
 import { AuthGuard } from "./auth/auth.guard";
+import { RegistrationService } from "./auth/registration.service";
+
 
 @NgModule({
   declarations: [
@@ -87,7 +89,7 @@ import { AuthGuard } from "./auth/auth.guard";
     MatSelectModule,
     HttpClientModule
   ],
-  providers: [UserDataService, AuthorizationService],
+  providers: [UserDataService, AuthorizationService, RegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

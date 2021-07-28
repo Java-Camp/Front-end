@@ -16,7 +16,12 @@ export class SignInComponent implements OnInit {
   authentification(email:string, password:string) {
     let res = this.auth.generateToken(email, password);
     res.subscribe(data => {
-      this.router.navigateByUrl(this.return);
+      console.log(data);
+      if(data) {
+        this.router.navigateByUrl(this.return);
+      } else {
+        this.error = "Incorrect email or password"
+      }
     });
   }
 

@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit {
     };
     console.log(request);
 
-    this.auth.registration(request);
+    //this.auth.registration(request);
   }
 
   submit() {

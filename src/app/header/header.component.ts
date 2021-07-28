@@ -12,9 +12,13 @@ import { AuthorizationService } from "../auth/authorization.service";
 })
 export class HeaderComponent implements OnInit {
   is_active = "";
-  constructor(private data:UserDataService, private auth:AuthorizationService) { }
+  currentUsername:any;
+  constructor(private data:UserDataService, private auth:AuthorizationService) {
+    this.currentUsername = sessionStorage.getItem('currentUsername');
+  }
 
   ngOnInit(): void {
+    
   }
 
   loggout() {
