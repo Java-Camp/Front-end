@@ -5,6 +5,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AccountService } from "../services/account.service";
 
 @Component({
   selector: 'app-accounts',
@@ -41,7 +42,7 @@ export class DialogCreate implements OnInit {
   accOptions: string[] = ['Family', 'Personal', 'Savings'];
   currencyOptions: string[] = ['USD', 'EUR', 'UAH', 'RUB', 'PLN'];
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, private acc: AccountService) {}
 
   ngOnInit(): void {
     this.filteredOptions = this.firstControle.valueChanges.pipe(
@@ -60,6 +61,11 @@ export class DialogCreate implements OnInit {
     this.snackBar.openFromComponent(SnackBar, {
       duration: this.durationInSeconds * 1000,
     });
+  }
+
+  createAccount(type:string, description:string, currency:string) {
+    this.acc.createAccount(type, description, currency);
+    this.openSnackBar();
   }
 }
 

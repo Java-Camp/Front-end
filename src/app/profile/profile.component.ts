@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDataService, User } from "../user-data.service";
+import { AuthorizationService } from "../auth/authorization.service";
 
 @Component({
   selector: 'app-profile',
@@ -8,8 +9,11 @@ import { UserDataService, User } from "../user-data.service";
 })
 export class ProfileComponent implements OnInit {
   public user = this.data.user;
-  
-  constructor(private data:UserDataService) { }
+  currentEmail:any;
+
+  constructor(private data:UserDataService, private auth:AuthorizationService) {
+    this.currentEmail = sessionStorage.getItem('currentUsername');
+  }
 
   ngOnInit(): void {
   }

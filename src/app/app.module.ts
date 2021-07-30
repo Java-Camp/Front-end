@@ -29,7 +29,7 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDataService } from "./user-data.service";
 import { MainPageComponent, DialogIncome, DialogExpense } from './main-page/main-page.component';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { HistoryComponent } from './history/history.component';
 import { AccountsComponent, DialogCreate } from './accounts/accounts.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -37,10 +37,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { AuthorizationService } from "./auth/authorization.service";
 import { AuthGuard } from "./auth/auth.guard";
+import { AuthInterceptor } from "./auth/auth.interceptor";
 import { RegistrationService } from "./auth/registration.service";
+import { AccountService } from "./services/account.service";
 
 
 @NgModule({
@@ -89,7 +91,12 @@ import { RegistrationService } from "./auth/registration.service";
     MatSelectModule,
     HttpClientModule
   ],
-  providers: [UserDataService, AuthorizationService, RegistrationService],
+  providers: [
+    UserDataService,
+    AuthorizationService,
+    RegistrationService, AccountService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

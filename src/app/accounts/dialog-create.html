@@ -6,7 +6,8 @@
            aria-label="type"
            matInput
            [formControl]="firstControle"
-           [matAutocomplete]="auto">
+           [matAutocomplete]="auto"
+           #type>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{option}}
@@ -18,7 +19,7 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Description</mat-label>
-    <input type="email" matInput [formControl]="descriptionControle" placeholder="Write your description">
+    <input type="email" matInput [formControl]="descriptionControle" placeholder="Write your description" #description>
   </mat-form-field>
 </form>
 
@@ -30,7 +31,8 @@
            aria-label="type"
            matInput
            [formControl]="currencyControle"
-           [matAutocomplete]="auto2">
+           [matAutocomplete]="auto2"
+           #currency>
     <mat-autocomplete #auto2="matAutocomplete">
       <mat-option *ngFor="let option of currencyOptions" [value]="option">
         {{option}}
@@ -39,5 +41,5 @@
   </mat-form-field>
 </form>
 <div class="button_add">
-  <button class="income" mat-button mat-dialog-close (click)="openSnackBar()">Create</button>
+  <button class="income" mat-button mat-dialog-close (click)="createAccount(type.value, description.value, currency.value)">Create</button>
 </div>

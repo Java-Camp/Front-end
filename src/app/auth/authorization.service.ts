@@ -20,12 +20,9 @@ export class AuthorizationService {
     return this.http.post<any>('http://localhost:8091/api/login', body, options)
       .pipe(
         tap(tokens => {
-          this.accessToken = JSON.stringify(tokens.accessToken);
-          this.refreshToken = JSON.stringify(tokens.refreshToken);
-
           sessionStorage.setItem('currentUsername', email);
-          sessionStorage.setItem('accessToken', this.accessToken);
-          sessionStorage.setItem('refreshToken', this.refreshToken);
+          sessionStorage.setItem('accessToken', tokens.accessToken);
+          sessionStorage.setItem('refreshToken', tokens.refreshToken);
         }),
         mapTo(true),
         catchError(error => {
