@@ -14,7 +14,11 @@ import { AccountService } from "../services/account.service";
 })
 export class AccountsComponent implements OnInit {
 
-  constructor(private data:UserDataService, public dialog: MatDialog) { }
+  accountsList:any;
+
+  constructor(private data:UserDataService, public dialog: MatDialog, private acc:AccountService) {
+
+  }
 
   accounts = this.data.accountList;
 
@@ -23,6 +27,11 @@ export class AccountsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.acc.getAccounts().subscribe( data => {
+      this.accountsList = data;
+      console.log(this.accountsList);
+
+    });
   }
 
 }
@@ -38,14 +47,24 @@ export class DialogCreate implements OnInit {
   durationInSeconds = 3;
   descriptionControle = new FormControl();
   firstControle = new FormControl();
-  currencyControle = new FormControl();
   accOptions: string[] = ['Family', 'Personal', 'Savings'];
-  currencyOptions: string[] = ['USD', 'EUR', 'UAH', 'RUB', 'PLN'];
+
+  currencyControle = new FormControl();
+  currencies:any;
+  currencyOptions: string[] = [];
 
   constructor(private snackBar: MatSnackBar, private acc: AccountService) {}
 
   ngOnInit(): void {
-    this.filteredOptions = this.firstControle.valueChanges.pipe(
+    this.acc.getCurrencies().subscribe(data=> {
+      this.currencies = data;
+      console.log(this.currencies);
+      for (let d of this.currencies) {
+        this.currencyOptions.push(d.name);
+      }
+    });
+
+    this.filteredOptions = this.currencyControle.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
@@ -54,7 +73,7 @@ export class DialogCreate implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.accOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.currencyOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   openSnackBar() {
@@ -63,8 +82,15 @@ export class DialogCreate implements OnInit {
     });
   }
 
-  createAccount(type:string, description:string, currency:string) {
-    this.acc.createAccount(type, description, currency);
+  createAccount(type:string, description:string, currencyName:string) {
+    let currencyId;
+    for(let currency of this.currencies) {
+      if (currencyName == currency.name) {
+        currencyId = currency.id;
+      }
+    }
+    this.acc.createAccount(type, description, currencyId);
+    window.location.reload();
     this.openSnackBar();
   }
 }

@@ -10,11 +10,11 @@ export class AccountService {
 
   constructor(private http:HttpClient) {}
 
-  public createAccount(typeOfAccount:string, description:string, currencyType:string) {
+  public createAccount(typeOfAccount:string, description:string, currencyId:any) {
     let body = {
       "accountTypeId":this.getIdOfTypeAccount(typeOfAccount),
       "alias":description,
-      "currencyId":2248
+      "currencyId":currencyId
     };
     console.log(body);
 
@@ -23,10 +23,18 @@ export class AccountService {
     })
   }
 
+  public getAccounts() {
+    return this.http.get('http://localhost:8091/api/accounts');
+  }
+
   public getIdOfTypeAccount(typeOfAccount:string) {
     if (typeOfAccount == 'Family') {
       return 1;
     } else
     return 2;
+  }
+
+  public getCurrencies() {
+    return this.http.get('http://localhost:8091/api/accounts/currencies')
   }
 }
