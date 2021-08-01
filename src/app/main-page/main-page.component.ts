@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserDataService, User } from "../user-data.service";
+import { AccountService } from "../services/account.service";
 
 @Component({
   selector: 'app-main-page',
@@ -24,6 +25,11 @@ export class MainPageComponent implements OnInit {
   openDialogExpense() {
     this.dialog.open(DialogExpense);
   }
+
+  openDialogTransaction() {
+    this.dialog.open(DialogTransaction);
+  }
+
   ngOnInit(): void {
 
   }
@@ -95,6 +101,61 @@ export class DialogExpense implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.incomeOptions.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(SnackBar, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-transaction',
+  templateUrl: './dialog-transaction.html',
+  styleUrls: ['./dialog-transaction.scss']
+})
+export class DialogTransaction implements OnInit {
+  durationInSeconds = 3;
+  accounts:any;
+  filteredOptions:any;
+  accountOptions: string[] = [];
+  sumControle = new FormControl();
+  accControle = new FormControl();
+  constructor(private snackBar: MatSnackBar, private acc: AccountService) {}
+
+  ngOnInit(): void {
+    this.acc.getAccounts().subscribe(data=> {
+      this.accounts = data;
+      console.log(this.accounts);
+      for (let a of this.accounts) {
+        this.accountOptions.push(a.alias);
+      }
+    });
+    setTimeout(() =>
+      {
+        this.filteredOptions = this.accControle.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+      },500);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.accountOptions.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  transfer(sum:any, alias:string) {
+    let accId;
+    for (let acc of this.accounts) {
+      if (alias == acc.alias) {
+        accId = acc.id;
+      }
+    }
+    console.log(accId + " " + sum);
+
   }
 
   openSnackBar() {

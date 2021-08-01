@@ -1,0 +1,27 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Sum</mat-label>
+    <input type="email" matInput [formControl]="sumControle" placeholder="Write your income" #sum>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Accounts</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           matInput
+           [formControl]="accControle"
+           [matAutocomplete]="auto"
+           #acc>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<div class="button_transfer">
+  <button class="transfer" mat-dialog-close (click)="transfer(sum.value, acc.value)">Transfer</button>
+</div>

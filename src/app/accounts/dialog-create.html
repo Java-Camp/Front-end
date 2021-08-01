@@ -26,16 +26,16 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Currency</mat-label>
-    <input type="text"
-           placeholder="Pick one"
-           aria-label="type"
+    <input placeholder="Pick one"
+           aria-label="Currency"
            matInput
            [formControl]="currencyControle"
            [matAutocomplete]="auto"
            #currency>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+      <mat-option *ngFor="let c of filteredOptions | async" [value]="c.country">
+        <span>{{c.name}}</span> |
+        <small>Country: {{c.country}}</small>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

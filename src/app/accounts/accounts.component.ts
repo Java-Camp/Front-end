@@ -7,6 +7,12 @@ import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AccountService } from "../services/account.service";
 
+export interface Currency {
+  id:any;
+  name:string;
+  country:string;
+}
+
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -44,36 +50,40 @@ export class AccountsComponent implements OnInit {
 export class DialogCreate implements OnInit {
 
   filteredOptions:any;
-  durationInSeconds = 3;
+  durationInSeconds = 1;
   descriptionControle = new FormControl();
   firstControle = new FormControl();
   accOptions: string[] = ['Family', 'Personal', 'Savings'];
 
   currencyControle = new FormControl();
-  currencies:any;
-  currencyOptions: string[] = [];
+  currencies: any;
+  currencyOptions: Currency[] = [];
 
-  constructor(private snackBar: MatSnackBar, private acc: AccountService) {}
+  constructor(private snackBar: MatSnackBar, private acc: AccountService) {
+
+  }
 
   ngOnInit(): void {
     this.acc.getCurrencies().subscribe(data=> {
       this.currencies = data;
-      console.log(this.currencies);
       for (let d of this.currencies) {
-        this.currencyOptions.push(d.name);
+        this.currencyOptions.push(<Currency>{id:d.id, name:d.name, country:d.country});
       }
+      console.log(this.currencyOptions);
     });
-
-    this.filteredOptions = this.currencyControle.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    setTimeout(() =>
+      {
+        this.filteredOptions = this.currencyControle.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+      },1000);
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Currency[] {
     const filterValue = value.toLowerCase();
 
-    return this.currencyOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.currencyOptions.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   openSnackBar() {
@@ -85,13 +95,18 @@ export class DialogCreate implements OnInit {
   createAccount(type:string, description:string, currencyName:string) {
     let currencyId;
     for(let currency of this.currencies) {
-      if (currencyName == currency.name) {
+      if (currencyName == currency.country) {
         currencyId = currency.id;
       }
     }
+    console.log(currencyId);
     this.acc.createAccount(type, description, currencyId);
-    window.location.reload();
     this.openSnackBar();
+    setTimeout(() =>
+      {
+        window.location.reload();
+      },1000);
+
   }
 }
 

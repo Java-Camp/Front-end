@@ -28,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDataService } from "./user-data.service";
-import { MainPageComponent, DialogIncome, DialogExpense } from './main-page/main-page.component';
+import { MainPageComponent, DialogIncome, DialogExpense, DialogTransaction } from './main-page/main-page.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { HistoryComponent } from './history/history.component';
 import { AccountsComponent, DialogCreate } from './accounts/accounts.component';
@@ -53,6 +53,7 @@ import { AccountService } from "./services/account.service";
     MainPageComponent,
     DialogIncome,
     DialogExpense,
+    DialogTransaction,
     PieChartComponent,
     HistoryComponent,
     AccountsComponent,
