@@ -2,7 +2,7 @@
   <button class="create-button" (click)="openDialogCreate()">Create new account</button>
 </div>
 
-<form *ngFor="let account of accountsList" routerLink="/">
+<form *ngFor="let account of accountsList" routerLink="/main" (click)="saveAccId(account.id)">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>{{account.accountType}}  {{account.currency}}</mat-card-title>
