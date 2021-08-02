@@ -1,7 +1,7 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Sum</mat-label>
-    <input type="email" matInput [formControl]="sumControle" placeholder="Write your income">
+    <input type="sum" matInput [formControl]="sumControle" placeholder="Write your income" #sum>
   </mat-form-field>
 </form>
 
@@ -13,7 +13,8 @@
            aria-label="type"
            matInput
            [formControl]="firstControle"
-           [matAutocomplete]="auto">
+           [matAutocomplete]="auto"
+           #type>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{option}}
@@ -41,7 +42,7 @@
 
 <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker">
+  <input matInput [matDatepicker]="picker" #date>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
@@ -49,5 +50,5 @@
   <p><mat-checkbox formControlName="notification">Do you want to get an email about this income?</mat-checkbox></p>
 
 <div class="button_add">
-  <button class="income" mat-button mat-dialog-close (click)="openSnackBar()">Add</button>
+  <button class="income" mat-button mat-dialog-close (click)="createOperation(sum.value, type.value, date.value)">Add</button>
 </div>

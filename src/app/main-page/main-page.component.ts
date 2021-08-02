@@ -6,6 +6,8 @@ import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserDataService, User } from "../user-data.service";
 import { AccountService } from "../services/account.service";
+import { OperationService } from "../services/operation.service";
+
 
 @Component({
   selector: 'app-main-page',
@@ -50,13 +52,26 @@ export class DialogIncome implements OnInit {
   incomeOptions: string[] = ['Job', 'Gift', 'Credit'];
   incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, private operation:OperationService) {}
 
   ngOnInit(): void {
     this.filteredOptions = this.firstControle.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
+  }
+
+  createOperation(sum:any, category:string, date:any) {
+    let op = {
+      "dateTime":"2021-12-31",
+      "sum":sum,
+      "accountId": "121",
+      "oppeerationTypeId":"1",
+      "categoryId":"1"
+    }
+    this.operation.createOperation(op).subscribe(data => {
+      console.log(data);
+    });
   }
 
   private _filter(value: string): string[] {

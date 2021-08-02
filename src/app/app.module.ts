@@ -43,6 +43,7 @@ import { AuthGuard } from "./auth/auth.guard";
 import { AuthInterceptor } from "./auth/auth.interceptor";
 import { RegistrationService } from "./auth/registration.service";
 import { AccountService } from "./services/account.service";
+import { OperationService } from "./services/operation.service";
 
 
 @NgModule({
@@ -95,7 +96,9 @@ import { AccountService } from "./services/account.service";
   providers: [
     UserDataService,
     AuthorizationService,
-    RegistrationService, AccountService,
+    RegistrationService,
+    AccountService,
+    OperationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
