@@ -40,6 +40,7 @@ export class AuthorizationService {
   }
 
   loggout() {
+    sessionStorage.removeItem('idOfCurrentAccount');
     sessionStorage.removeItem('currentUsername');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('refreshToken');

@@ -27,6 +27,10 @@ export class AccountService {
     return this.http.get('http://localhost:8091/api/accounts');
   }
 
+  getAccountById(id:any) {
+    console.log(id);
+  }
+
   public getIdOfTypeAccount(typeOfAccount:string) {
     if (typeOfAccount == 'Family') {
       return 1;

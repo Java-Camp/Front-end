@@ -13,12 +13,12 @@ import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {path: "main", component: MainPageComponent, canActivate: [AuthGuard]},
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
   {path: "history", component: HistoryComponent, canActivate: [AuthGuard]},
   {path: "accounts", component: AccountsComponent, canActivate: [AuthGuard]},
   {path: "about-us", component: AboutUsComponent, canActivate: [AuthGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
   {path: "settings", component: SettingsComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: '/accounts', pathMatch: 'full'},
   {path: "sign-in", component: SignInComponent},
   {path: "sign-up", component: SignUpComponent},
   //{ path: '**', component: PageNotFoundComponent },

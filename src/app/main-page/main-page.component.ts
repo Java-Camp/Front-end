@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserDataService, User } from "../user-data.service";
 import { AccountService } from "../services/account.service";
@@ -18,7 +19,7 @@ export class MainPageComponent implements OnInit {
 
   public user = this.data.user;
 
-  constructor(public dialog: MatDialog, private data:UserDataService) {}
+  constructor(public dialog: MatDialog, private data:UserDataService, private acc:AccountService, private router: Router) {}
 
   openDialogIncome() {
     this.dialog.open(DialogIncome);
@@ -33,7 +34,11 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (sessionStorage.getItem('idOfCurrentAccount') == null) {
+      this.router.navigate(['/accounts']);
+      alert("Choose an account");
+    }
+    this.acc.getAccountById(sessionStorage.getItem('idOfCurrentAccount'));
   }
 }
 

@@ -40,6 +40,11 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  saveAccId(id:any) {
+    sessionStorage.removeItem('idOfCurrentAccount');
+    sessionStorage.setItem('idOfCurrentAccount', id);
+  }
+
 }
 
 @Component({

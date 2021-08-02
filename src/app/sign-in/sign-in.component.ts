@@ -40,7 +40,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams
-      .subscribe(params => this.return = params['return'] || '/main');
+      .subscribe(params => this.return = params['return'] || '/accounts');
   }
 
 }
