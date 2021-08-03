@@ -3,6 +3,8 @@ import {MatMenu} from '@angular/material/menu';
 import {MatIcon} from '@angular/material/icon';
 import { UserDataService, User } from "../user-data.service";
 import { AuthorizationService } from "../auth/authorization.service";
+import { AccountService } from "../services/account.service";
+
 
 
 @Component({
@@ -13,12 +15,11 @@ import { AuthorizationService } from "../auth/authorization.service";
 export class HeaderComponent implements OnInit {
   is_active = "";
   currentUsername:any;
-  constructor(private data:UserDataService, private auth:AuthorizationService) {
+  constructor(private data:UserDataService, private auth:AuthorizationService, private acc:AccountService) {
     this.currentUsername = sessionStorage.getItem('currentUsername');
   }
 
   ngOnInit(): void {
-    
   }
 
   loggout() {

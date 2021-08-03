@@ -18,8 +18,26 @@ import { OperationService } from "../services/operation.service";
 export class MainPageComponent implements OnInit {
 
   public user = this.data.user;
-
-  constructor(public dialog: MatDialog, private data:UserDataService, private acc:AccountService, private router: Router) {}
+  accData:any;
+  currency = "";
+  constructor(public dialog: MatDialog, private data:UserDataService, private acc:AccountService, private router: Router) {
+    if (sessionStorage.getItem('idOfCurrentAccount') == null) {
+      this.router.navigate(['/accounts']);
+      alert("Choose an account");
+    }
+    this.acc.getAccountById(sessionStorage.getItem('idOfCurrentAccount')).subscribe(data => {
+      this.accData = data;
+      console.log(this.accData);
+    })
+    setTimeout(() =>
+      {
+        console.log(this.data + "ngOn");
+        this.acc.getCurrencyById(this.accData.currencyId).subscribe(data => {
+          let c:any = data;
+          this.currency = c.name;
+        })
+      },100);
+  }
 
   openDialogIncome() {
     this.dialog.open(DialogIncome);
@@ -34,11 +52,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('idOfCurrentAccount') == null) {
-      this.router.navigate(['/accounts']);
-      alert("Choose an account");
-    }
-    this.acc.getAccountById(sessionStorage.getItem('idOfCurrentAccount'));
+
   }
 }
 

@@ -27,8 +27,8 @@ export class AccountService {
     return this.http.get('http://localhost:8091/api/accounts');
   }
 
-  getAccountById(id:any) {
-    console.log(id);
+  public getAccountById(id:any) {
+    return this.http.get('http://localhost:8091/api/accounts/' + id);
   }
 
   public getIdOfTypeAccount(typeOfAccount:string) {
@@ -39,6 +39,10 @@ export class AccountService {
   }
 
   public getCurrencies() {
-    return this.http.get('http://localhost:8091/api/accounts/currencies')
+    return this.http.get('http://localhost:8091/api/accounts/currencies');
+  }
+
+  public getCurrencyById(id:any) {
+    return this.http.get('http://localhost:8091/api/accounts/currencies/' + id);
   }
 }
