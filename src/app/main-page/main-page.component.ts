@@ -85,7 +85,7 @@ export class DialogIncome implements OnInit {
       "dateTime":"2021-12-31",
       "sum":sum,
       "accountId": "121",
-      "oppeerationTypeId":"1",
+      "operationTypeId":"21",
       "categoryId":"1"
     }
     this.operation.createOperation(op).subscribe(data => {

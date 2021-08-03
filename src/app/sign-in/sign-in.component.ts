@@ -2,6 +2,7 @@ import { Input, Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthorizationService } from "../auth/authorization.service";
 import { Router, ActivatedRoute } from '@angular/router';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SignInComponent implements OnInit {
   return: string = '';
 
-  constructor(private auth:AuthorizationService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private auth:AuthorizationService, private router: Router,
+              private route: ActivatedRoute,
+              private toastrService: ToastrService){ }
 
   authentification(email:string, password:string) {
     let res = this.auth.generateToken(email, password);
@@ -19,7 +22,7 @@ export class SignInComponent implements OnInit {
       if(data) {
         this.router.navigateByUrl(this.return);
       } else {
-        this.error = "Incorrect email or password"
+        this.toastrService.error('Invalid email or password', 'Error')
       }
     });
   }
@@ -41,6 +44,8 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => this.return = params['return'] || '/accounts');
+    this.toastrService.success('HelloWorld', 'Toaster is fun')
+
   }
 
 }

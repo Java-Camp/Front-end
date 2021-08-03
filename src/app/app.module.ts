@@ -39,11 +39,13 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { AuthorizationService } from "./auth/authorization.service";
-import { AuthGuard } from "./auth/auth.guard";
+
 import { AuthInterceptor } from "./auth/auth.interceptor";
 import { RegistrationService } from "./auth/registration.service";
 import { AccountService } from "./services/account.service";
 import { OperationService } from "./services/operation.service";
+import {ToastrModule} from "ngx-toastr";
+import {AppHttpInterceptor} from "./errors/http.interceptor";
 
 
 @NgModule({
@@ -91,7 +93,8 @@ import { OperationService } from "./services/operation.service";
     MatGridListModule,
     MatRadioModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     UserDataService,
@@ -99,7 +102,9 @@ import { OperationService } from "./services/operation.service";
     RegistrationService,
     AccountService,
     OperationService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

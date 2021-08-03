@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AccountService } from "../services/account.service";
+import {ToastrService} from "ngx-toastr";
 
 export interface Currency {
   id:any;
@@ -22,7 +23,9 @@ export class AccountsComponent implements OnInit {
 
   accountsList:any;
 
-  constructor(private data:UserDataService, public dialog: MatDialog, private acc:AccountService) {
+  constructor(
+    private data:UserDataService, public dialog: MatDialog, private acc:AccountService,
+    private toastrService : ToastrService) {
 
   }
 
@@ -38,6 +41,8 @@ export class AccountsComponent implements OnInit {
       console.log(this.accountsList);
 
     });
+
+
   }
 
   saveAccId(id:any) {
