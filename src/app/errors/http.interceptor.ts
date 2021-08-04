@@ -17,17 +17,18 @@ export class AppHttpInterceptor implements HttpInterceptor {
       tap(evt => {
         if (evt instanceof HttpResponse) {
           if (evt.body && evt.body.success)
-            this.toasterService.success(evt.body.success.message, evt.body.success.title, {positionClass: 'toast-top-right'});
+            this.toasterService.success('Succesfuly', 'Code: ' + evt.body.success.code, {positionClass: 'toast-top-right'});
         }
       }),
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse) {
           try {
-            this.toasterService.error(err.error.message, err.error.errorCode, {positionClass: 'toast-top-right'});
+            console.log(err);
+            this.toasterService.error(err.error.message, 'Error', {positionClass: 'toast-top-right'});
           } catch (e) {
-            this.toasterService.error('An error occurred', `${err.error.message}`, {positionClass: 'toast-top-right'});
+            this.toasterService.error('An error occurred',  err.error.status, {positionClass: 'toast-top-right'});
           }
-          //log error
+
         }
         return of(err);
       }));

@@ -21,8 +21,6 @@ export class SignInComponent implements OnInit {
     res.subscribe(data => {
       if(data) {
         this.router.navigateByUrl(this.return);
-      } else {
-        this.toastrService.error('Invalid email or password', 'Error')
       }
     });
   }
