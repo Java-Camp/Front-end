@@ -8,6 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserDataService, User } from "../user-data.service";
 import { AccountService } from "../services/account.service";
 import { OperationService } from "../services/operation.service";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -20,10 +21,11 @@ export class MainPageComponent implements OnInit {
   public user = this.data.user;
   accData:any;
   currency = "";
-  constructor(public dialog: MatDialog, private data:UserDataService, private acc:AccountService, private router: Router) {
+  constructor(public dialog: MatDialog, private data:UserDataService, private acc:AccountService, private router: Router,
+              private toastrService: ToastrService) {
     if (sessionStorage.getItem('idOfCurrentAccount') == null) {
       this.router.navigate(['/accounts']);
-      alert("Choose an account");
+     this.toastrService.warning('Choose an account', 'Warning');
     }
     this.acc.getAccountById(sessionStorage.getItem('idOfCurrentAccount')).subscribe(data => {
       this.accData = data;
