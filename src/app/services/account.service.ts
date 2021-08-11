@@ -45,4 +45,7 @@ export class AccountService {
   public getCurrencyById(id:any) {
     return this.http.get('http://localhost:8091/api/accounts/currencies/' + id);
   }
+  public getTypeOfAccount() {
+    return this.http.get("http://localhost:8091/api/accounts/typeOfAccount/")
+  }
 }

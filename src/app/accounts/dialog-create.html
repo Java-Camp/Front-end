@@ -9,8 +9,8 @@
            [matAutocomplete]="auto2"
            #type>
     <mat-autocomplete #auto2="matAutocomplete">
-      <mat-option *ngFor="let option of accOptions" [value]="option">
-        {{option}}
+      <mat-option *ngFor="let option of accOptions" [value]="option.name">
+        {{option.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
