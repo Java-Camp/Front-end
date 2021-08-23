@@ -14,6 +14,10 @@ export interface Currency {
   country:string;
 }
 
+export interface AccountType{
+  id:any;
+  name:string
+}
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -61,8 +65,8 @@ export class DialogCreate implements OnInit {
   durationInSeconds = 1;
   descriptionControle = new FormControl();
   firstControle = new FormControl();
-  accOptions: string[] = ['Family', 'Personal', 'Savings'];
-
+  accOptions: AccountType[] = [];
+  accTypes: any;
   currencyControle = new FormControl();
   currencies: any;
   currencyOptions: Currency[] = [];
@@ -70,6 +74,7 @@ export class DialogCreate implements OnInit {
   constructor(private snackBar: MatSnackBar, private acc: AccountService) {
 
   }
+
 
   ngOnInit(): void {
     this.acc.getCurrencies().subscribe(data=> {
@@ -79,6 +84,13 @@ export class DialogCreate implements OnInit {
       }
       console.log(this.currencyOptions);
     });
+    this.acc.getTypeOfAccount().subscribe(data=> {
+      this.accTypes = data;
+      for (let d of this.accTypes) {
+        this.accOptions.push(<AccountType>{id:d.id,name:d.name});
+      }
+      console.log(this.accOptions);
+    });
     setTimeout(() =>
       {
         this.filteredOptions = this.currencyControle.valueChanges.pipe(
@@ -86,6 +98,9 @@ export class DialogCreate implements OnInit {
           map(value => this._filter(value))
         );
       },1000);
+
+
+
   }
 
   private _filter(value: string): Currency[] {
