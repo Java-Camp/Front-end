@@ -18,7 +18,7 @@ export class AccountService {
     };
     console.log(body);
 
-    this.http.post<any>('http://localhost:8091/api/accounts/save', body).subscribe( data => {
+    this.http.post<any>('http://localhost:8091/api/accounts', body).subscribe( data => {
       console.log(data);
     })
   }
@@ -39,10 +39,10 @@ export class AccountService {
   }
 
   public getCurrencies() {
-    return this.http.get('http://localhost:8091/api/accounts/currencies');
+    return this.http.get('http://localhost:8091/api/currencies');
   }
 
   public getCurrencyById(id:any) {
-    return this.http.get('http://localhost:8091/api/accounts/currencies/' + id);
+    return this.http.get('http://localhost:8091/api/currencies/' + id);
   }
 }

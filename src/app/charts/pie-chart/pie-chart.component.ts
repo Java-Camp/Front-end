@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from "../../services/category.service";
+import { OperationService } from "../../services/operation.service";
+
 
 @Component({
   selector: 'app-pie-chart',
@@ -6,14 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  public pieChartLabels = ['Car', 'Entertainment', 'Food', 'Clothes', 'Transport', 'Gifts'];
-  public pieChartData = [100, 350, 150, 50, 5, 100];
+//'Car', 'Entertainment', 'Food', 'Clothes', 'Transport', 'Gifts'
+  chartData:any;
+  public pieChartLabels:any = [];
+  public pieChartData:any = [];
   public pieChartType:any = 'pie';
   public pieChartColors: Array<any> = [
     {
@@ -22,4 +21,19 @@ export class PieChartComponent implements OnInit {
       borderWidth: 2,
     }
   ];
+
+  constructor(private category:CategoryService, private operation:OperationService) { }
+
+  ngOnInit(): void {
+    this.pieChartLabels = [];
+    this.pieChartData = [];
+    this.operation.getTodayOperation().subscribe(data => {
+      console.log(data);
+      this.chartData = data;
+      for(let d of this.chartData) {
+        this.pieChartLabels.push(d.category);
+        this.pieChartData.push(d.sum);
+      }
+    });
+  }
 }

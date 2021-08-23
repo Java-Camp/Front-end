@@ -12,6 +12,15 @@ export class OperationService {
 
   public createOperation(operation:any) {
     console.log(operation);
-    return this.http.post<any>('http://localhost:8091/api/operations/save', operation);
+    return this.http.post<any>('http://localhost:8091/api/operations', operation);
+  }
+
+  public getOperationsByDate(filter:any) {
+    console.log(filter);
+    return this.http.post<any>('http://localhost:8091/api/operations/' + sessionStorage.getItem("idOfCurrentAccount"), filter);
+  }
+
+  public getTodayOperation() {
+    return this.http.get('http://localhost:8091/api/operations/' + sessionStorage.getItem("idOfCurrentAccount"));
   }
 }

@@ -41,8 +41,6 @@ export class AccountsComponent implements OnInit {
       console.log(this.accountsList);
 
     });
-
-
   }
 
   saveAccId(id:any) {

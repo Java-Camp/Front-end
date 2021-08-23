@@ -23,7 +23,7 @@
   </mat-form-field>
 </form>
 
-<form class="example-form">
+<!-- <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>How often</mat-label>
     <input type="text"
@@ -38,17 +38,17 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-</form>
+</form> -->
 
-<mat-form-field class="example-full-width" appearance="fill">
+<!-- <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>Choose a date</mat-label>
   <input matInput [matDatepicker]="picker" #date>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+</mat-form-field> -->
 
-  <p><mat-checkbox formControlName="notification">Do you want to get an email about this income?</mat-checkbox></p>
+  <!-- <p><mat-checkbox formControlName="notification">Do you want to get an email about this income?</mat-checkbox></p> -->
 
 <div class="button_add">
-  <button class="income" mat-button mat-dialog-close (click)="createOperation(sum.value, type.value, date.value)">Add</button>
+  <button class="income" mat-button mat-dialog-close (click)="createOperation(sum.value, type.value)">Add</button>
 </div>

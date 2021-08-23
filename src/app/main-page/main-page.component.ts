@@ -8,6 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserDataService, User } from "../user-data.service";
 import { AccountService } from "../services/account.service";
 import { OperationService } from "../services/operation.service";
+import { CategoryService } from "../services/category.service";
 import {ToastrService} from "ngx-toastr";
 
 
@@ -33,7 +34,6 @@ export class MainPageComponent implements OnInit {
     })
     setTimeout(() =>
       {
-        console.log(this.data + "ngOn");
         this.acc.getCurrencyById(this.accData.currencyId).subscribe(data => {
           let c:any = data;
           this.currency = c.name;
@@ -71,9 +71,9 @@ export class DialogIncome implements OnInit {
   firstControle = new FormControl();
   secondControle = new FormControl();
   incomeOptions: string[] = ['Job', 'Gift', 'Credit'];
-  incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
+  // incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
 
-  constructor(private snackBar: MatSnackBar, private operation:OperationService) {}
+  constructor(private snackBar: MatSnackBar, private operation:OperationService, private router: Router) {}
 
   ngOnInit(): void {
     this.filteredOptions = this.firstControle.valueChanges.pipe(
@@ -82,22 +82,24 @@ export class DialogIncome implements OnInit {
     );
   }
 
-  createOperation(sum:any, category:string, date:any) {
+  createOperation(sum:any, category:string) {
     let op = {
-      "dateTime":"2021-12-31",
-      "sum":sum,
-      "accountId": "121",
-      "operationTypeId":"21",
-      "categoryId":"1"
+      "sum": sum,
+      "accountId": sessionStorage.getItem("idOfCurrentAccount"),
+      "operationTypeId": "81",
+      "categoryId": "1"
     }
     this.operation.createOperation(op).subscribe(data => {
       console.log(data);
     });
+    setTimeout(() =>
+      {
+        window.location.reload();
+      },500);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.incomeOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -121,16 +123,50 @@ export class DialogExpense implements OnInit {
   sumControle = new FormControl();
   firstControle = new FormControl();
   secondControle = new FormControl();
-  incomeOptions: string[] = ['Car', 'Entertainment', 'Food', 'Clothes', 'Transport', 'Gifts'];
-  incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
+  incomeType:any;
+  incomeOptions: string[] = [];
+  //'Car', 'Entertainment', 'Food', 'Clothes', 'Transport', 'Gifts'
+  // incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar, private operation:OperationService, private category:CategoryService) {}
 
   ngOnInit(): void {
-    this.filteredOptions = this.firstControle.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.category.getExpenceCategory().subscribe(data => {
+      console.log(data);
+      this.incomeType = data;
+      for(let t of this.incomeType) {
+        this.incomeOptions.push(t.name);
+      }
+    });
+    setTimeout(() =>
+      {
+        this.filteredOptions = this.firstControle.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+      },1000);
+  }
+
+  createOperation(sum:any, category:string) {
+    let categoryId;
+    for(let c of this.incomeType) {
+      if (category == c.name) {
+        categoryId = c.id;
+      }
+    }
+    let op = {
+      "sum": sum,
+      "accountId": sessionStorage.getItem("idOfCurrentAccount"),
+      "operationTypeId": "21",
+      "categoryId": categoryId
+    }
+    this.operation.createOperation(op).subscribe(data => {
+      console.log(data);
+    });
+    setTimeout(() =>
+      {
+        window.location.reload();
+      },500);
   }
 
   private _filter(value: string): string[] {
@@ -158,7 +194,7 @@ export class DialogTransaction implements OnInit {
   accountOptions: string[] = [];
   sumControle = new FormControl();
   accControle = new FormControl();
-  constructor(private snackBar: MatSnackBar, private acc: AccountService) {}
+  constructor(private snackBar: MatSnackBar, private acc: AccountService, private operation:OperationService) {}
 
   ngOnInit(): void {
     this.acc.getAccounts().subscribe(data=> {
@@ -175,6 +211,19 @@ export class DialogTransaction implements OnInit {
           map(value => this._filter(value))
         );
       },500);
+  }
+
+  createOperation(sum:any, category:string) {
+    let op = {
+      "dateTime":"2021-12-31",
+      "sum":sum,
+      "accountId": "121",
+      "operationTypeId":"21",
+      "categoryId":"1"
+    }
+    this.operation.createOperation(op).subscribe(data => {
+      console.log(data);
+    });
   }
 
   private _filter(value: string): string[] {

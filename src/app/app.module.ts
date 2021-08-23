@@ -44,6 +44,7 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { RegistrationService } from "./auth/registration.service";
 import { AccountService } from "./services/account.service";
 import { OperationService } from "./services/operation.service";
+import { CategoryService } from "./services/category.service";
 import {ToastrModule} from "ngx-toastr";
 import {AppHttpInterceptor} from "./errors/http.interceptor";
 
@@ -102,7 +103,7 @@ import {AppHttpInterceptor} from "./errors/http.interceptor";
     RegistrationService,
     AccountService,
     OperationService,
-
+    CategoryService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }
   ],
