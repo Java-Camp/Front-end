@@ -1,11 +1,11 @@
 <div class="wrapper">
 <ul class="header">
+  <li>
+    <p>MyWedge <i class="fab fa-monero"></i></p>
+  </li>
   <li class="name">
     <p>{{currentUsername}}</p>
   </li>
-  <!-- <li class="balance"> -->
-    <!-- {{accData.moneyBalance}} {{accData.currencyId}} -->
-  <!-- </li> -->
   <li class="setting">
     <p [matMenuTriggerFor]="settings">
       <i class="fas fa-ellipsis-v"></i>
@@ -15,14 +15,14 @@
         <i class="fas fa-user"></i>
         <span> Your profile</span>
       </button>
-      <button mat-menu-item>
+      <!-- <button mat-menu-item>
         <i class="fas fa-question-circle"></i>
         <span> Help</span>
-      </button>
-      <button mat-menu-item routerLink="/settings">
+      </button> -->
+      <!-- <button mat-menu-item routerLink="/settings">
         <i class="fas fa-cog"></i>
         <span> Settings</span>
-      </button>
+      </button> -->
       <button mat-menu-item (click)="loggout()">
         <i class="fas fa-sign-out-alt"></i>
         <span> Sign out</span>
@@ -32,11 +32,12 @@
 </ul>
 </div>
   <div class="menu{{is_active}}">
+    <p class="logo">MyWedge <i class="fab fa-monero"></i></p>
     <div mat-icon-button class="menu-btn" (click)="toggleNav()"><i class="fas fa-bars"></i></div>
       <nav class="menu-list">
         <a href="/main">Main</a>
         <a href="/accounts">Accounts</a>
         <a href="/history">History</a>
-        <a href="/about-us">About us</a>
+        <!-- <a href="/about-us">About us</a> -->
       </nav>
     </div>

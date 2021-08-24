@@ -48,4 +48,12 @@ export class AccountService {
   public getTypeOfAccount() {
     return this.http.get("http://localhost:8091/api/accounts/typeOfAccount/")
   }
+
+  public getCurrentUser() {
+    return this.http.get("http://localhost:8091/api/users");
+  }
+
+  public changeUserInfo(info:any) {
+    return this.http.put<any>("http://localhost:8091/api/users", info);
+  }
 }

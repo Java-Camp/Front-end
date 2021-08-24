@@ -2,7 +2,6 @@
 <div class="wrapper">
   <img src="https://image.flaticon.com/icons/png/512/1946/1946429.png" alt="">
   <br>
-  <button class="change">Change</button>
   <div class="firstname">
     Firstname: {{user.firstName}}
   </div>
@@ -10,9 +9,10 @@
     Lastname: {{user.lastName}}
   </div>
   <div class="email">
-    Email: {{currentEmail}}
+    Email: {{user.email}}
   </div>
   <div class="password">
     Password: *********
   </div>
+  <button class="change" (click)="openDialog()">Change</button>
 </div>

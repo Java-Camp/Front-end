@@ -33,7 +33,7 @@ import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { HistoryComponent } from './history/history.component';
 import { AccountsComponent, DialogCreate } from './accounts/accounts.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent, DialogChange } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -64,6 +64,7 @@ import {AppHttpInterceptor} from "./errors/http.interceptor";
     DialogCreate,
     AboutUsComponent,
     ProfileComponent,
+    DialogChange,
     SettingsComponent,
     SignInComponent,
     SignUpComponent,

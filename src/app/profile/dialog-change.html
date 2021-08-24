@@ -1,0 +1,31 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>First Name</mat-label>
+    <input type="name" matInput placeholder="Write your new first name" #firstName>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Last Name</mat-label>
+    <input type="name" matInput placeholder="Write your new last name" #lastName>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Write your new email" #email>
+  </mat-form-field>
+</form>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Write your new password" #password>
+  </mat-form-field>
+</form>
+
+<div class="button_add">
+  <button class="change" mat-button mat-dialog-close (click)="changeUserInfo(firstName.value, lastName.value, email.value, password.value)">Change</button>
+</div>

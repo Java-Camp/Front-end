@@ -70,16 +70,27 @@ export class DialogIncome implements OnInit {
   sumControle = new FormControl();
   firstControle = new FormControl();
   secondControle = new FormControl();
-  incomeOptions: string[] = ['Job', 'Gift', 'Credit'];
+  incomeType:any;
+  incomeOptions: string[] = [];
   // incomeDate: string[] = ['Once', 'Day', 'Week', 'Month', 'Year'];
 
-  constructor(private snackBar: MatSnackBar, private operation:OperationService, private router: Router) {}
+  constructor(private snackBar: MatSnackBar, private operation:OperationService, private router: Router, private category:CategoryService) {}
 
   ngOnInit(): void {
-    this.filteredOptions = this.firstControle.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.category.getIncomeCategory().subscribe(data => {
+      console.log(data);
+      this.incomeType = data;
+      for(let t of this.incomeType) {
+        this.incomeOptions.push(t.name);
+      }
+    });
+    setTimeout(() =>
+      {
+        this.filteredOptions = this.firstControle.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+      },1000);
   }
 
   createOperation(sum:any, category:string) {
@@ -201,7 +212,9 @@ export class DialogTransaction implements OnInit {
       this.accounts = data;
       console.log(this.accounts);
       for (let a of this.accounts) {
-        this.accountOptions.push(a.alias);
+        if (a.id != sessionStorage.getItem("idOfCurrentAccount")) {
+          this.accountOptions.push(a.alias);
+        }
       }
     });
     setTimeout(() =>
@@ -213,34 +226,34 @@ export class DialogTransaction implements OnInit {
       },500);
   }
 
-  createOperation(sum:any, category:string) {
-    let op = {
-      "dateTime":"2021-12-31",
-      "sum":sum,
-      "accountId": "121",
-      "operationTypeId":"21",
-      "categoryId":"1"
+  createOperation(sum:any, account:string) {
+    let accId;
+    for (let acc of this.accounts) {
+      if (account == acc.alias) {
+        accId = acc.id;
+      }
     }
+    let op = {
+      "sum": sum,
+      "accountId": sessionStorage.getItem("idOfCurrentAccount"),
+      "operationTypeId": "82",
+      "categoryId": "61",
+      "operationId": accId
+    }
+    console.log(op);
     this.operation.createOperation(op).subscribe(data => {
       console.log(data);
     });
+    setTimeout(() =>
+      {
+        window.location.reload();
+      },500);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.accountOptions.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  transfer(sum:any, alias:string) {
-    let accId;
-    for (let acc of this.accounts) {
-      if (alias == acc.alias) {
-        accId = acc.id;
-      }
-    }
-    console.log(accId + " " + sum);
-
   }
 
   openSnackBar() {

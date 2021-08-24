@@ -34,6 +34,13 @@ export class PieChartComponent implements OnInit {
         this.pieChartLabels.push(d.category);
         this.pieChartData.push(d.sum);
       }
+      console.log(this.chartData);
+
+      if (this.chartData.length == 0) {
+        this.pieChartLabels = ["Today you didn't do any operation"];
+        this.pieChartData = [0];
+      }
     });
+
   }
 }

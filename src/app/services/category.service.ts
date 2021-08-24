@@ -12,6 +12,10 @@ export class CategoryService {
   constructor(private http:HttpClient) { }
 
   public getExpenceCategory() {
-    return this.http.get("http://localhost:8091/api/categories");
+    return this.http.get("http://localhost:8091/api/categories/getAll/21");
+  }
+
+  public getIncomeCategory() {
+    return this.http.get("http://localhost:8091/api/categories/getAll/81");
   }
 }

@@ -45,6 +45,11 @@ li {
   transition: 0.5s;
   transform: translateX(-100%);
 }
+.logo {
+  position: absolute;
+  top: 2.2%;
+}
+
 .menu_active {
   position: fixed;
   left: 0;top: 0;
