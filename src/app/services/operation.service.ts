@@ -23,4 +23,9 @@ export class OperationService {
   public getTodayOperation() {
     return this.http.get('http://localhost:8091/api/operations/' + sessionStorage.getItem("idOfCurrentAccount"));
   }
+
+  public getAllByDateRange(filter:any) {
+    console.log(filter);
+    return this.http.post<any>('http://localhost:8091/api/operations/' + sessionStorage.getItem("idOfCurrentAccount") + '/getByRange', filter);
+  }
 }

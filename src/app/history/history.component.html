@@ -11,9 +11,9 @@
   <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
   <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
 </mat-form-field>
-<button mat-raised-button (click)="getOperationsByDate(campaignOne.value)">Show</button>
+<button mat-raised-button (click)="getOperationsByDate(campaignOne.value)" (click)="getAllByDateRange(campaignOne.value)">Show</button>
 
-<app-bar-chart *ngIf="operations != null"></app-bar-chart>
+<app-bar-chart *ngIf="operationsForChart != null" [childMessage]="operationsForChart"></app-bar-chart>
 
 <mat-tab-group *ngIf="operations != null">
   <mat-tab label="Expense">

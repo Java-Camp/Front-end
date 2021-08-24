@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import { UserDataService } from "../user-data.service";
 import { OperationService } from "../services/operation.service";
+import { Router } from '@angular/router';
+import {ToastrService} from "ngx-toastr";
 
 export interface Operation {
   type:string;
@@ -26,7 +28,12 @@ export class HistoryComponent implements OnInit {
     income: Operation[] = [];
     expense: Operation[] = [];
 
-    constructor(private data:UserDataService, private operation:OperationService) {
+    constructor(private data:UserDataService, private operation:OperationService, private router: Router,
+                private toastrService: ToastrService) {
+      if (sessionStorage.getItem('idOfCurrentAccount') == null) {
+        this.router.navigate(['/accounts']);
+       this.toastrService.warning('Choose an account', 'Warning');
+      }
 
       const today = new Date();
       const month = today.getMonth();
@@ -66,6 +73,22 @@ export class HistoryComponent implements OnInit {
 
 
       })
+    }
+    operationsForChart:any;
+    getAllByDateRange(date:any) {
+      console.log(date.end);
+      let filter = {
+        "firstDate": date.start,
+        "secondDate": date.end
+      }
+      this.operation.getAllByDateRange(filter).subscribe(date => {
+        console.log(date);
+        this.operationsForChart = date;
+      })
+      setTimeout(() =>
+        {
+          console.log(this.operationsForChart);
+        },500);
     }
 
     ngOnInit(): void {

@@ -37,18 +37,39 @@ export class DialogChange implements OnInit {
 
   constructor(private acc:AccountService) {}
 
-  changeUserInfo(firstName:string, lastName:string, email:string, password:string) {
-    let info = {
-      "firstName":firstName,
-      "lastName":lastName,
-      "username":email,
-      "password":password,
+  changeUserInfo(firstname:string, lastname:string, password:string) {
+    let info:any;
+    if (firstname.length != 0) {
+      info = {
+        "firstName": firstname
+      }
+      this.acc.changeUserInfo(info).subscribe(data => {
+        console.log(data);
+      })
     }
+    setTimeout(() =>
+      {
+        if (lastname.length != 0) {
+          info = {
+            "lastName": lastname
+          }
+          this.acc.changeUserInfo(info).subscribe(data => {
+            console.log(data);
+          })
+        }
+      },200);
+        setTimeout(() =>
+          {
+            if (password.length != 0) {
+              info = {
+                "password": password
+              }
+              this.acc.changeUserInfo(info).subscribe(data => {
+                console.log(data);
+              })
+            }
+          },100);
     console.log(info);
-
-    this.acc.changeUserInfo(info).subscribe(data => {
-      console.log(data);
-    })
     setTimeout(() =>
       {
         window.location.reload();

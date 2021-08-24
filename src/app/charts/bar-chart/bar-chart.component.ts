@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { OperationService } from "../../services/operation.service";
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,20 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarChartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private operation: OperationService) { }
+
+  @Input() childMessage: any;
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = ['2021-07-19', '2021-07-20', '2021-07-21', '2021-07-22', '2021-07-23', '2021-07-24', '2021-07-25'];
+  public barChartLabels:any = [];
   public barChartType:any = 'bar';
   public barChartLegend = true;
   public barChartData = [
-    {data: [75, 49, 89, 31, 86, 35, 50], label: 'Expense'},
-    {data: [48, 38, 65, 39, 66, 17, 80], label: 'Income'}
+    {data: [0], label: 'Expense'},
+    {data: [0], label: 'Income'}
   ];
 
   ngOnInit(): void {
+    console.log(this.childMessage);
+    this.barChartLabels = [];
+    console.log(this.barChartData[0].data);
+    this.barChartData[0].data = [];
+    this.barChartData[1].data = [];
+    for(let m of this.childMessage) {
+      let date = m.date[0] + "-" + m.date[1] + "-" + m.date[2];
+      this.barChartLabels.push(date);
+      this.barChartData[0].data.push(m.expense);
+      this.barChartData[1].data.push(m.income);
+    }
   }
 
 }
