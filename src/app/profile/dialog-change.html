@@ -19,6 +19,13 @@
   </mat-form-field>
 </form>
 
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Confirm</mat-label>
+    <input type="password" matInput placeholder="Confirm your new password" #confirm>
+  </mat-form-field>
+</form>
+
 <div class="button_add">
-  <button class="change" mat-button mat-dialog-close (click)="changeUserInfo(firstName.value, lastName.value, password.value)">Change</button>
+  <button class="change" mat-button mat-dialog-close (click)="changeUserInfo(firstName.value, lastName.value, password.value, confirm.value)">Change</button>
 </div>

@@ -27,6 +27,7 @@ export class HistoryComponent implements OnInit {
     operations:any;
     income: Operation[] = [];
     expense: Operation[] = [];
+    transfer: Operation[] = [];
 
     constructor(private data:UserDataService, private operation:OperationService, private router: Router,
                 private toastrService: ToastrService) {
@@ -59,21 +60,29 @@ export class HistoryComponent implements OnInit {
       this.operation.getOperationsByDate(filter).subscribe(data => {
         this.income = [];
         this.expense = [];
+        this.transfer = [];
         console.log(data);
         this.operations = data;
         for(let o of this.operations) {
           if (o.type == "Incomes") {
             this.income.push(<Operation>{type:o.type, date:o.date, sum:o.sum, category:o.category});
-          } else {
+          }
+          if (o.type == "Expenses") {
             this.expense.push(<Operation>{type:o.type, date:o.date, sum:o.sum, category:o.category});
+          }
+          if (o.type == "Transfers") {
+            this.transfer.push(<Operation>{type:o.type, date:o.date, sum:o.sum, category:o.category});
           }
         }
         console.log(this.income);
         console.log(this.expense);
+        console.log(this.transfer);
+
 
 
       })
     }
+
     operationsForChart:any;
     getAllByDateRange(date:any) {
       console.log(date.end);

@@ -4,6 +4,7 @@ import { AuthorizationService } from "../auth/authorization.service";
 import { AccountService } from "../services/account.service";
 import {MatDialog} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -35,9 +36,9 @@ export class ProfileComponent implements OnInit {
 })
 export class DialogChange implements OnInit {
 
-  constructor(private acc:AccountService) {}
+  constructor(private acc:AccountService, public toasterService: ToastrService) {}
 
-  changeUserInfo(firstname:string, lastname:string, password:string) {
+  changeUserInfo(firstname:string, lastname:string, password:string, confirm:string) {
     let info:any;
     if (firstname.length != 0) {
       info = {
@@ -60,13 +61,17 @@ export class DialogChange implements OnInit {
       },200);
         setTimeout(() =>
           {
-            if (password.length != 0) {
-              info = {
-                "password": password
+            if (password.length != 0 ) {
+              if (password != confirm) {
+                this.toasterService.error("You didn't confirm a password",  'Exception', {positionClass: 'toast-top-right'});
+              } else {
+                info = {
+                  "password": password
+                }
+                this.acc.changeUserInfo(info).subscribe(data => {
+                  console.log(data);
+                })
               }
-              this.acc.changeUserInfo(info).subscribe(data => {
-                console.log(data);
-              })
             }
           },100);
     console.log(info);

@@ -1,36 +1,40 @@
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, HttpErrorResponse }   from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, HttpEventType, HttpErrorResponse}   from '@angular/common/http';
 import { Injectable } from "@angular/core"
-import { Observable, of } from "rxjs";
-import { tap, catchError } from "rxjs/operators";
+import { Observable, of, throwError } from "rxjs";
+import { tap, catchError, finalize } from "rxjs/operators";
 import { ToastrService } from 'ngx-toastr';
+
+
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
   constructor(public toasterService: ToastrService) {
   }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let lastResponse: HttpEvent<any>;
+    let error: HttpErrorResponse;
 
-    return next.handle(req).pipe(
-      tap(evt => {
-        if (evt instanceof HttpResponse) {
-          if (evt.body && evt.body.success)
-            this.toasterService.success('Succesfuly', 'Code: ' + evt.body.success.code, {positionClass: 'toast-top-right'});
+    return next.handle(request)
+    .pipe(
+      tap((response: HttpEvent<any>) => {
+        lastResponse = response;
+        if (response.type === HttpEventType.Response) {
+            console.log('succes');
         }
       }),
       catchError((err: any) => {
+        error = err;
+        console.log('error response', err);
         if (err instanceof HttpErrorResponse) {
-          try {
-            console.log(err);
-            this.toasterService.error(err.error.message, 'Error', {positionClass: 'toast-top-right'});
-          } catch (e) {
-            this.toasterService.error('An error occurred',  err.error.status, {positionClass: 'toast-top-right'});
-          }
-
-        }
-        return of(err);
+              try {
+                if (err.status == 0) {
+                  this.toasterService.error('Incorrect username or password',  'Exception', {positionClass: 'toast-top-right'});
+                }
+              } catch (e) {
+                this.toasterService.error(err.error.message, 'Exception', {positionClass: 'toast-top-right'});
+              }
+            }
+        return throwError(err);
       }));
   }
 }

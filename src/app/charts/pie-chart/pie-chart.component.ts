@@ -9,15 +9,15 @@ import { OperationService } from "../../services/operation.service";
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-//'Car', 'Entertainment', 'Food', 'Clothes', 'Transport', 'Gifts'
+
   chartData:any;
   public pieChartLabels:any = [];
   public pieChartData:any = [];
   public pieChartType:any = 'pie';
   public pieChartColors: Array<any> = [
     {
-      backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#a319c2'],
-      hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#a63ebd'],
+      backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#a319c2', '#f2902e', '#2b5ee0', '#e349c4', '#44b837'],
+      hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774', '#a63ebd', '#eb9c4d', '#3d69d9', '#e665cc', '#58b54e'],
       borderWidth: 2,
     }
   ];

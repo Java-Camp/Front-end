@@ -38,7 +38,7 @@ export class MainPageComponent implements OnInit {
           let c:any = data;
           this.currency = c.name;
         })
-      },100);
+      },500);
   }
 
   openDialogIncome() {

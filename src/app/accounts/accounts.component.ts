@@ -43,7 +43,6 @@ export class AccountsComponent implements OnInit {
     this.acc.getAccounts().subscribe( data => {
       this.accountsList = data;
       console.log(this.accountsList);
-
     });
   }
 
@@ -98,9 +97,6 @@ export class DialogCreate implements OnInit {
           map(value => this._filter(value))
         );
       },1000);
-
-
-
   }
 
   private _filter(value: string): Currency[] {
@@ -122,8 +118,14 @@ export class DialogCreate implements OnInit {
         currencyId = currency.id;
       }
     }
+    let typeId;
+    for(let t of this.accTypes) {
+      if (t.name = type) {
+        typeId = t.id;
+      }
+    }
     console.log(currencyId);
-    this.acc.createAccount(type, description, currencyId);
+    this.acc.createAccount(typeId, description, currencyId);
     this.openSnackBar();
     setTimeout(() =>
       {

@@ -5,7 +5,7 @@
 <form *ngFor="let account of accountsList" routerLink="/main" (click)="saveAccId(account.id)">
   <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title>{{account.accountType}}  {{account.currency}}</mat-card-title>
+      <mat-card-title>{{account.account_TYPE}}  {{account.currency}}</mat-card-title>
 
     </mat-card-header>
     <img mat-card-image src="https://image.flaticon.com/icons/png/512/20/20687.png">

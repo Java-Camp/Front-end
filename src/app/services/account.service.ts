@@ -10,9 +10,9 @@ export class AccountService {
 
   constructor(private http:HttpClient) {}
 
-  public createAccount(typeOfAccount:string, description:string, currencyId:any) {
+  public createAccount(typeOfAccount:any, description:string, currencyId:any) {
     let body = {
-      "accountTypeId":this.getIdOfTypeAccount(typeOfAccount),
+      "accountTypeId":typeOfAccount,
       "alias":description,
       "currencyId":currencyId
     };
@@ -31,13 +31,6 @@ export class AccountService {
     return this.http.get('http://localhost:8091/api/accounts/' + id);
   }
 
-  public getIdOfTypeAccount(typeOfAccount:string) {
-    if (typeOfAccount == 'Family') {
-      return 1;
-    } else
-    return 2;
-  }
-
   public getCurrencies() {
     return this.http.get('http://localhost:8091/api/currencies');
   }
@@ -46,7 +39,7 @@ export class AccountService {
     return this.http.get('http://localhost:8091/api/currencies/' + id);
   }
   public getTypeOfAccount() {
-    return this.http.get("http://localhost:8091/api/accounts/typeOfAccount/")
+    return this.http.get("http://localhost:8091/api/typeOfAccount");
   }
 
   public getCurrentUser() {

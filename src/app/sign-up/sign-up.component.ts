@@ -25,9 +25,7 @@ export class SignUpComponent implements OnInit {
     success.subscribe( data => {
       if (data) {
         this.router.navigate(['/sign-in']);
-      } else {
-        this.error = 'Incorrect data';
-      }
+      } 
     })
   }
 
