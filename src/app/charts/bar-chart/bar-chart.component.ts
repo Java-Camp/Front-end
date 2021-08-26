@@ -20,7 +20,8 @@ export class BarChartComponent implements OnInit {
   public barChartLegend = true;
   public barChartData = [
     {data: [0], label: 'Expense'},
-    {data: [0], label: 'Income'}
+    {data: [0], label: 'Income'},
+    {data: [0], label: 'Transfer'}
   ];
 
   ngOnInit(): void {
@@ -29,11 +30,13 @@ export class BarChartComponent implements OnInit {
     console.log(this.barChartData[0].data);
     this.barChartData[0].data = [];
     this.barChartData[1].data = [];
+    this.barChartData[2].data = [];
     for(let m of this.childMessage) {
       let date = m.date[0] + "-" + m.date[1] + "-" + m.date[2];
       this.barChartLabels.push(date);
       this.barChartData[0].data.push(m.expense);
       this.barChartData[1].data.push(m.income);
+      this.barChartData[2].data.push(m.transfer);
     }
   }
 
